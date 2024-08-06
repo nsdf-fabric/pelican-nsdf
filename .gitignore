@@ -1,0 +1,8 @@
+## Temporary files created by vim.
+*.swp
+
+## Configuration files for pyenv.
+.python-version
+
+## Directories created by Jupyter (via running kernels, etc.).
+.ipynb_checkpoints

@@ -1,0 +1,17 @@
+Bootstrap: docker
+From: continuumio/anaconda3:2024.06-1
+
+%files
+  openvisuspy.yml /opt/build/
+
+%post
+  apt-get update -q -y
+  apt-get upgrade -q -y
+  apt-get clean -q -y
+  rm -rf /var/lib/apt/lists/*
+
+  conda env create -q -f /opt/build/openvisuspy.yml
+
+%runscript
+  ## Run the specified command within the openvisuspy environment.
+  conda run -n openvisuspy "$@"
