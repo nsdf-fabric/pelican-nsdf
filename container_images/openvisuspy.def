@@ -1,6 +1,9 @@
 Bootstrap: docker
 From: continuumio/anaconda3:2024.06-1
 
+%arguments
+  pelican_pkg_url=https://github.com/PelicanPlatform/pelican/releases/download/v7.9.9/pelican_7.9.9-1_amd64.deb
+
 %files
   openvisuspy.yml /opt/build/
 
@@ -11,6 +14,11 @@ From: continuumio/anaconda3:2024.06-1
   rm -rf /var/lib/apt/lists/*
 
   conda env create -q -f /opt/build/openvisuspy.yml
+
+  ## Install Pelican.
+  wget -O /opt/build/pelican.deb {{ pelican_pkg_url }}
+  dpkg -i /opt/build/pelican.deb
+  rm -f /opt/build/pelican.deb
 
 %runscript
   ## Run the specified command within the openvisuspy environment.
