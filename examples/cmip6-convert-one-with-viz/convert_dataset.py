@@ -1,7 +1,6 @@
 import datetime
 import os
 import shutil
-import subprocess
 import sys
 
 import numpy as np
@@ -11,8 +10,6 @@ import xarray as xr
 
 destination_dir = sys.argv[1]
 ds_object = sys.argv[2]
-osdf_destination_loc = sys.argv[3]
-pelican_token = sys.argv[4]
 
 
 ## Parse metadata.
@@ -69,29 +66,3 @@ for Z in range(D):  # each Z is a day (offset from the year)
     db.write(slice, time=year * 365 + Z, field=ds_parameters)
 
 db.compressDataset(["zip"])
-
-
-## Write the index into OSDF.
-
-# TODO: Incorporate this into HTCondor's file transfer mechanism.
-
-proc = subprocess.run(
-    [
-        "pelican",
-        "--debug",
-        "object",
-        "put",
-        "-r",
-        "-t",
-        pelican_token,
-        destination_dir,
-        osdf_destination_loc,
-    ],
-    capture_output=True,
-)
-
-sys.stdout.write(proc.stdout.decode("utf-8"))
-sys.stdout.flush()
-sys.stderr.write(proc.stderr.decode("utf-8"))
-sys.stderr.flush()
-sys.exit(proc.returncode)
