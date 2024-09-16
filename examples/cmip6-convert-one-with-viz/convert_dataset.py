@@ -10,6 +10,7 @@ import xarray as xr
 
 destination_dir = sys.argv[1]
 ds_object = sys.argv[2]
+pelican_loc = sys.argv[3]
 
 
 ## Parse metadata.
@@ -66,3 +67,21 @@ for Z in range(D):  # each Z is a day (offset from the year)
     db.write(slice, time=year * 365 + Z, field=ds_parameters)
 
 db.compressDataset(["zip"])
+
+
+## Copy the data into OSDF.
+
+sys.stdout.flush()
+sys.stderr.flush()
+os.execl(
+    "./pelican",
+    "pelican",
+    "object",
+    "put",
+    "--debug",
+    "--recursive",
+    "--token",
+    "osdf.token",
+    destination_dir,
+    pelican_loc,
+)
