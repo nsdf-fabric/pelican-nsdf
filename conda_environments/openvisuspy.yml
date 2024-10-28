@@ -13,6 +13,7 @@ dependencies:
   - pip:
       - openvisusnogui~=2.2
       - openvisuspy~=1.0
+      - pelicanfs~=1.0
 
   # Packages for processing data.
   - bokeh~=3.4
