@@ -1,0 +1,4 @@
+## Log files produced by HTCondor jobs.
+*.log
+*.out
+*.err
