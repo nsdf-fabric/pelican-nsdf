@@ -4,5 +4,6 @@
 ## Configuration files for pyenv.
 .python-version
 
-## Directories created by Jupyter (via running kernels, etc.).
-.ipynb_checkpoints
+## Directories created by Python and Jupyter (via running kernels, etc.).
+__pycache__/
+.ipynb_checkpoints/
